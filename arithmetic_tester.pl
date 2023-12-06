@@ -129,6 +129,23 @@ makeTest(B1, negate(E)) :-
 % T = negate(number(2)) ;
 % T = negate(number(3)) .
 
+makeTestWithNums(_, Nums, number(X)) :-
+    member(X, Nums).
+makeTestWithNums(B1, Nums, plus(E1, E2)) :-
+    decBound(B1, B2),
+    makeTestWithNums(B2, Nums, E1),
+    makeTestWithNums(B2, Nums, E2).
+makeTestWithNums(B1, Nums, minus(E1, E2)) :-
+    decBound(B1, B2),
+    makeTestWithNums(B2, Nums, E1),
+    makeTestWithNums(B2, Nums, E2).
+makeTestWithNums(B1, Nums, mult(E1, E2)) :-
+    decBound(B1, B2),
+    makeTestWithNums(B2, Nums, E1),
+    makeTestWithNums(B2, Nums, E2).
+makeTestWithNums(B1, Nums, negate(E)) :-
+    decBound(B1, B2),
+    makeTestWithNums(B2, Nums, E).
 
 % ---Begin Testing-Related Code---
 
